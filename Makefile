@@ -1,4 +1,4 @@
-.PHONY: clean test lint
+.PHONY: clean test lint ci
 
 DEV_BIN     = venv/bin
 PYTHON_BIN ?= python3
@@ -13,6 +13,8 @@ venv:
 
 lint:
 	@$(DEV_BIN)/pylint api_client.py blizzard_api
+
+ci: lint test
 
 clean:
 	@rm -rf cache
