@@ -4,7 +4,7 @@ DEV_BIN     = venv/bin
 PYTHON_BIN ?= python3
 
 test: venv
-	@$(DEV_BIN)/$(PYTHON_BIN) api_client.py
+	@$(DEV_BIN)/nosetests
 
 venv:
 	@virtualenv --python=$(PYTHON_BIN) venv
@@ -12,7 +12,7 @@ venv:
 	@$(DEV_BIN)/pip install -r dev_requirements.txt
 
 lint:
-	@$(DEV_BIN)/pylint api_client.py py
+	@$(DEV_BIN)/pylint api_client.py blizzard_api
 
 clean:
 	@rm -rf cache
