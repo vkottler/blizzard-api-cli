@@ -42,5 +42,6 @@ def main(argv):
 
     # execute requested task
     print(args)
+    print(args)
 
     return 0
