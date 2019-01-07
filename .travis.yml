@@ -1,7 +1,10 @@
 language: python
+python:
   - "3.5"
 
 install:
   - make venv
 
-script: make ci
+script:
+  - make lint
+  - make test

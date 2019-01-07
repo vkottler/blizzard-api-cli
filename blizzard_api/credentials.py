@@ -12,6 +12,7 @@ import logging
 
 class Credentials:
     """ Credentials retrieval from JSON-formatted files. """
+    #pylint:disable=too-few-public-methods
 
     log = logging.getLogger(__name__)
 
