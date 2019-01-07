@@ -8,7 +8,7 @@ Script entry-point.
 import sys
 
 # internal
-from py.api_client import main
+from blizzard_api.client import main
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
