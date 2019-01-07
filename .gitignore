@@ -1,0 +1,6 @@
+*.sw[iop]
+*.pyc
+__pycache__
+credentials.json
+venv
+cache

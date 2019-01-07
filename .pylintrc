@@ -1,0 +1,5 @@
+[FORMAT]
+good-names=id
+
+[TYPECHECK]
+generated-members=requests.*
