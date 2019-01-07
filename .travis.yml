@@ -4,7 +4,11 @@ python:
 
 install:
   - make venv
+  - pip install python-coveralls
 
 script:
   - make lint
   - make test
+
+after_success:
+  - coveralls
