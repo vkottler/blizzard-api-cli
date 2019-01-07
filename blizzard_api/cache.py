@@ -12,6 +12,7 @@ import os
 
 class Cache:
     """ Disk-based cache implementation. """
+    #pylint:disable=too-few-public-methods
 
     log = logging.getLogger(__name__)
 
