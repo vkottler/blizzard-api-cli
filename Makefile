@@ -16,7 +16,7 @@ venv: dev_requirements.txt
 	@$(DEV_BIN)/pip install -r dev_requirements.txt
 
 lint: venv
-	@$(DEV_BIN)/pylint setup.py blizzard_api
+	@$(DEV_BIN)/pylint --rcfile=.pylintrc setup.py blizzard_api
 
 ci: lint test
 
