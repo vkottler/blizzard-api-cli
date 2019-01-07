@@ -1,4 +1,4 @@
-.PHONY: clean test lint view-coverage
+.PHONY: clean test lint view-coverage upload-test
 
 DEV_BIN     = venv/bin
 PYTHON_BIN ?= python3
@@ -17,6 +17,12 @@ venv: dev_requirements.txt
 
 lint: venv
 	@$(DEV_BIN)/pylint setup.py blizzard_api
+
+dist: venv
+	@$(DEV_BIN)/$(PYTHON_BIN) setup.py sdist bdist_wheel
+
+upload-test:
+	@$(DEV_BIN)/twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
 clear-coverage:
 	@rm -rf cover .coverage

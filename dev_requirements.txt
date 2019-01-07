@@ -2,3 +2,4 @@ setuptools
 pylint
 nose
 coverage
+twine
