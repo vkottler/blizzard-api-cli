@@ -1,4 +1,4 @@
-.PHONY: clean test lint ci view-coverage
+.PHONY: clean test lint view-coverage
 
 DEV_BIN     = venv/bin
 PYTHON_BIN ?= python3
@@ -16,9 +16,7 @@ venv: dev_requirements.txt
 	@$(DEV_BIN)/pip install -r dev_requirements.txt
 
 lint: venv
-	@$(DEV_BIN)/pylint --rcfile=.pylintrc setup.py blizzard_api
-
-ci: lint test
+	@$(DEV_BIN)/pylint setup.py blizzard_api
 
 clear-coverage:
 	@rm -rf cover .coverage
