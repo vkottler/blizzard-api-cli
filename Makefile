@@ -24,6 +24,9 @@ dist: venv
 upload-test:
 	@$(DEV_BIN)/twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
+upload-prod:
+	@$(DEV_BIN)/twine upload dist/*
+
 clear-coverage:
 	@rm -rf cover .coverage
 
