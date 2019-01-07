@@ -8,22 +8,27 @@ Vaughn Kottler 01/07/19
 # built-in
 import argparse
 import logging
+import sys
 
 # internal
+from . import DESCRIPTION
 from .credentials import Credentials
 from .cache import Cache
 
-def main(argv):
+def main(argv=None):
     """
     :param argv: A list of String input arguments
     :returns: Integer return code for use with sys.exit
     """
 
+    if argv is None:
+        argv = sys.argv
+
     # initialize logging
     logging.basicConfig(level=logging.INFO)
 
     # initialize parser
-    desc = "Interact with the battle.net API."
+    desc = DESCRIPTION
     parser = argparse.ArgumentParser(description=desc)
 
     # initialize arguments
@@ -41,7 +46,6 @@ def main(argv):
         return 1
 
     # execute requested task
-    print(args)
     print(args)
 
     return 0

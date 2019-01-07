@@ -1,6 +1,9 @@
 *.sw[iop]
 *.pyc
+*.egg-info
 __pycache__
 credentials.json
 venv
 cache
+.coverage
+cover
