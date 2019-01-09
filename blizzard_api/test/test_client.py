@@ -34,3 +34,8 @@ class TestClient(unittest.TestCase):
         self.assertEqual(main(self.args + [get_item("bad_cred_file2.json")]), 1)
         self.assertEqual(main(self.args + [get_item("bad_cred_file3.json")]), 1)
         self.assertEqual(main(self.args + [get_item("bad_cred_file4.json")]), 1)
+
+    def test_bad_arguments(self):
+        """ Tests the 'argv is None' logic. """
+
+        self.assertEqual(main(), 1)
