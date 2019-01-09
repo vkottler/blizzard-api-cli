@@ -65,6 +65,7 @@ class Cache:
         # add empty list to new bucket file
         with open(self.bucket_path(name), "w") as bucket_file:
             bucket_file.write(json.dumps([]))
+            bucket_file.flush()
 
     def get_bucket(self, name):
         """
@@ -132,6 +133,7 @@ class Cache:
         # write contents back
         with open(self.bucket_path(bucket_name), "w") as bucket_file:
             bucket_file.write(string_content)
+            bucket_file.flush()
 
     def is_bucket(self, name):
         """
@@ -147,4 +149,4 @@ class Cache:
         :returns: list of Strings of all existing buckets in this cache
         """
 
-        return [file_name.strip(".json") for file_name in os.listdir(self.directory)]
+        return [file_name.replace(".json", "") for file_name in os.listdir(self.directory)]

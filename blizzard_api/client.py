@@ -45,6 +45,10 @@ def main(argv=None):
     except SystemExit:
         return 1
 
+    # get a usable token
+    args.auth.cache = args.cache
+    #args.token = args.auth.get_token()
+
     # execute requested task
     print(args)
 

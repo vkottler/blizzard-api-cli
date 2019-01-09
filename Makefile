@@ -5,7 +5,7 @@ PYTHON_BIN ?= python3
 BROWSER    ?= firefox
 
 test: venv
-	@$(DEV_BIN)/nosetests --with-coverage --cover-html
+	@$(DEV_BIN)/nosetests --with-coverage --cover-html --cover-package=.
 
 view-coverage: cover
 	@$(BROWSER) cover/index.html
@@ -34,4 +34,4 @@ clean: clear-coverage
 	@rm -rf cache
 
 clean-venv:
-	@rm -rf venv *.egg-info
+	@rm -rf venv *.egg-info build dist
