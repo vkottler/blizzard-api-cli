@@ -8,7 +8,9 @@ Vaughn Kottler 01/07/19
 # third-party
 import requests
 
-def request_client_token(client_id, client_secret):
+TOKEN_SERVER = "https://us.battle.net/oauth/token"
+
+def request_client_token(client_id, client_secret, server=TOKEN_SERVER):
     """
     Query the battle.net OAuth 2.0 for a client access token.
 
@@ -20,8 +22,7 @@ def request_client_token(client_id, client_secret):
     :raises: requests.exceptions.HTTPError
     """
 
-    req = requests.post("https://us.battle.net/oauth/token",
-                        data={"grant_type": "client_credentials"},
+    req = requests.post(server, data={"grant_type": "client_credentials"},
                         auth=(client_id, client_secret))
 
     # request succeeded, return to user

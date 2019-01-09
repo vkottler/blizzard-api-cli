@@ -18,14 +18,15 @@ def get_seconds():
     """ Retrieve Epoch time in seconds. """
 
     millis = int(round(time.time() * 1000))
-    return millis * 1000
+    return round(millis / 1000)
 
 class Credentials:
     """ Credentials retrieval from JSON-formatted files. """
 
     log = logging.getLogger(__name__)
 
-    def __init__(self, credentials_file, cache=None):
+    def __init__(self, credentials_file, cache=None,
+                 get_token_fn=request_client_token):
         """
         :param credentials_file: Path to a JSON file containing an
                                  object with 'id' and 'secret' fields
@@ -34,6 +35,7 @@ class Credentials:
 
         self.creds = None
         self.cache = cache
+        self.get_token_fn = get_token_fn
 
         # verify file can be opened and decoded as JSON
         try:
@@ -84,7 +86,7 @@ class Credentials:
         :returns: a new client_credentials access token
         """
 
-        token = request_client_token(self.id, self.secret)
+        token = self.get_token_fn(self.id, self.secret)
         token["retrieved"] = get_seconds()
         self.cache_token(token)
         return token
@@ -103,6 +105,6 @@ class Credentials:
         # not
         token = self.cache.get_bucket("token")[0]
         current_seconds = get_seconds()
-        if token["retrieved"] + token["expires_in"] >= current_seconds:
+        if token["retrieved"] + token["expires_in"] < current_seconds:
             return self.get_new_token()
         return token
