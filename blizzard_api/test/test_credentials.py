@@ -12,23 +12,10 @@ import unittest
 
 # internal
 from blizzard_api.cache import Cache
-from blizzard_api.test.resources import get_item
+from blizzard_api.test.resources import get_item, get_fake_token
 
 # payload
-from blizzard_api.credentials import Credentials, get_seconds
-
-def get_fake_token(_id, _secret):
-    """
-    A function to use in place of the server-querying token function that
-    requires usable credentials.
-    """
-
-    token_dict = {}
-    token_dict["token_type"] = "bearer"
-    token_dict["access_token"] = "AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHHII"
-    token_dict["expires_in"] = 86399
-    token_dict["retrieved"] = get_seconds()
-    return token_dict
+from blizzard_api.credentials import Credentials
 
 class TestCredentials(unittest.TestCase):
     """ Testing token retrieval and storage. """

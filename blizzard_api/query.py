@@ -2,7 +2,7 @@
 """
 Blizzard API CLI - Querying Blizzard API endpoints.
 
-Vaughn Kottler 01/07/19
+Vaughn Kottler 01/10/19
 
 request_results = query.request("data/wow/playable-class/index", "static-us")
 request_results = query.request("data/wow/playable-class/1", "static-us")
@@ -94,16 +94,14 @@ class QueryEngine:
     log = logging.getLogger(__name__)
 
     def __init__(self, credentials, region=Region.US,
-                 locale=Locale.en_US, cache=None):
+                 locale=Locale.en_US):
         """
         :param credentials: Credentials object to perform valid queries with
         :param region: Region enum selection
         :param locale: Locale enum selection
-        :param cache: Cache object to store and retrieve results from
         """
 
         self.credentials = credentials
-        self.cache = cache
         self.region = region
         self.locale = locale
 

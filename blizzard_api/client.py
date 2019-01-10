@@ -48,7 +48,7 @@ def main(argv=None):
 
     # set up a query engine for commands to use
     args.auth.cache = args.cache
-    args.query = QueryEngine(args.auth, cache=args.cache)
+    args.query = QueryEngine(args.auth)
 
     # execute requested task
 
