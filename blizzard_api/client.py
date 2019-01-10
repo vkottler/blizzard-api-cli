@@ -14,6 +14,7 @@ import sys
 from . import DESCRIPTION
 from .credentials import Credentials
 from .cache import Cache
+from .query import QueryEngine
 
 def main(argv=None):
     """
@@ -45,11 +46,10 @@ def main(argv=None):
     except SystemExit:
         return 1
 
-    # get a usable token
+    # set up a query engine for commands to use
     args.auth.cache = args.cache
-    #args.token = args.auth.get_token()
+    args.query = QueryEngine(args.auth, cache=args.cache)
 
     # execute requested task
-    print(args)
 
     return 0

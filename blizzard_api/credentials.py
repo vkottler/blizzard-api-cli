@@ -99,6 +99,7 @@ class Credentials:
         # if there's no token in the cache, return a new one and attempt to
         # cache it
         if not self.token_in_cache():
+            Credentials.log.info("No access token in cache, fetching a new one.")
             return self.get_new_token()
 
         # if there is one, make sure it's still valid and get a new one if
@@ -106,5 +107,6 @@ class Credentials:
         token = self.cache.get_bucket("token")[0]
         current_seconds = get_seconds()
         if token["retrieved"] + token["expires_in"] < current_seconds:
+            Credentials.log.info("Cached access token is expired, fetching a new one")
             return self.get_new_token()
         return token
