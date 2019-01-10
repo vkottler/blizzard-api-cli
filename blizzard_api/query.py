@@ -4,11 +4,11 @@ Blizzard API CLI - Querying Blizzard API endpoints.
 
 Vaughn Kottler 01/07/19
 
-#request_results = query.request("data/wow/playable-class/index", "static-us")
-#request_results = query.request("data/wow/playable-class/1", "static-us")
-#request_results = query.request("wow/item/18803")
-#print(request_results)
-#query.get_icon(56, "spell_frost_frostshock", ".")
+request_results = query.request("data/wow/playable-class/index", "static-us")
+request_results = query.request("data/wow/playable-class/1", "static-us")
+request_results = query.request("wow/item/18803")
+print(request_results)
+query.get_icon(56, "spell_frost_frostshock", ".")
 
 print(request_results["_links"])
 for result in request_results["classes"]:
@@ -25,6 +25,7 @@ import requests
 
 QUERY_FORMAT_STR = "https://{0}.api.blizzard.com/{1}"
 CN_QUERY_FORMAT_STR = "https://gateway.battlenet.com.{0}/{1}"
+ICON_QUERY_FORMAT_STR = "http://media.blizzard.com/wow/icons/{0}/{1}"
 
 class Region(Enum):
     """
@@ -106,7 +107,7 @@ class QueryEngine:
         self.region = region
         self.locale = locale
 
-    def request(self, path, namespace=None):
+    def request(self, path, namespace=None, query_format_str=QUERY_FORMAT_STR):
         """
         :param path: String path of the API endpoint to query
         :param namespace: Namespace enum selection, required for some queries
@@ -117,7 +118,7 @@ class QueryEngine:
                 "access_token": self.credentials.get_token()["access_token"]}
         if namespace is not None:
             args["namespace"] = namespace.format(self.region)
-        req = requests.get(QUERY_FORMAT_STR.format(self.region, path),
+        req = requests.get(query_format_str.format(self.region, path),
                            params=args)
 
         # request succeeded, return to user
@@ -129,7 +130,8 @@ class QueryEngine:
         return None
 
     @staticmethod
-    def get_icon(name, dest_dir=".", size=IconSize.LARGE):
+    def get_icon(name, dest_dir=".", size=IconSize.LARGE,
+                 endpoint_format_str=ICON_QUERY_FORMAT_STR):
         """
         Retrieve an in-game icon by name.
 
@@ -140,10 +142,9 @@ class QueryEngine:
 
         # build the request uri
         file_name = "{0}.jpg".format(name)
-        query_format_str = "http://media.blizzard.com/wow/icons/{0}/{1}"
 
         # perform and validate the request
-        req = requests.get(query_format_str.format(size, file_name),
+        req = requests.get(endpoint_format_str.format(size, file_name),
                            stream=True)
         if req.status_code != requests.codes.ok:
             req.raise_for_status()
